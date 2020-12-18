@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/Character.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/BadGuy.tscn" type="PackedScene" id=2]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.101961, 0.698039, 0.835294, 1 )
@@ -70,7 +71,7 @@ material = SubResource( 3 )
 transform = Transform( 1, 0, 0, 0, 0.861035, 0.508546, 0, -0.508546, 0.861035, 0, 7.05855, 4.67288 )
 
 [node name="Character" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+transform = Transform( 0.0652116, 0, -0.997871, 0, 1, 0, 0.997871, 0, 0.0652116, -14.0586, 2, 3.44421 )
 
 [node name="CSGBox5" type="CSGBox" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -16.3251 )
@@ -86,3 +87,6 @@ radius = 3.0
 height = 5.0
 sides = 30
 material = SubResource( 5 )
+
+[node name="BadGuy" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.157572, 0, -0.987508, 0, 1, 0, 0.987508, 0, 0.157572, 9.57898, 2, 3.43083 )

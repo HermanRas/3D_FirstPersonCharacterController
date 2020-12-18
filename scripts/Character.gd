@@ -18,6 +18,10 @@ var run = false
 
 onready var head = $head
 onready var ground_check = $GroundCheck
+onready var aimcast = $head/Camera/AimCast
+onready var gun = $head/hand/uziLongSilencer
+onready var muzzle = gun.get_node("Muzzle")
+onready var bullet = preload("res://scenes/9mm_Bullet.tscn")
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -28,7 +32,18 @@ func _input(event):
 		head.rotate_x(deg2rad(-event.relative.y * mouse_sensitivity))
 		head.rotation.x = clamp(head.rotation.x, deg2rad(-89),deg2rad(89))
 
-func _physics_process(delta):
+func _physics_process(delta):	
+	if Input.is_action_just_pressed("action_fire") :
+		if aimcast.is_colliding():
+			var b = bullet.instance()
+			muzzle.add_child(b)
+			b.look_at(aimcast.get_collision_point(),Vector3.UP)
+			b.shoot = true
+		else :
+			var b = bullet.instance()
+			b.rotate_x(deg2rad(180))
+			muzzle.add_child(b)
+			b.shoot = true
 	
 	direction = Vector3()
 	if ground_check.is_colliding():
@@ -71,8 +86,6 @@ func _physics_process(delta):
 	movement.z = h_velocity.z + graviry_vec.z
 	movement.x = h_velocity.x + graviry_vec.x
 	movement.y = graviry_vec.y
-	
-	$UI/Speed.set_text(str(movement.x))
 	
 	move_and_slide(movement,Vector3.UP)
 	
